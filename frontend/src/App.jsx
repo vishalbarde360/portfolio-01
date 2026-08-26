@@ -42,7 +42,7 @@ const projects = [
   },
   {
     name: "Music-Streaming Application",
-    image: "./images/markwebix.png",
+    image: "",
     tags: "React, Node.js, Express.js, MongoDB",
     title: "Music-Streaming Application",
     live: "#",
