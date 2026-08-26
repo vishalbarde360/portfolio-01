@@ -348,16 +348,59 @@ export default function App() {
               </a>
             </div>
           </div>
+          <div className="relative flex justify-center items-center">
 
-          <div className="relative flex justify-center">
-            <div className="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-stone-400/70 photo-ring" />
-            <div className="relative w-64 h-80 sm:w-80 sm:h-96  bg-gradient-to-b flex items-center justify-center overflow-hidden  photo-float">
+            {/* Background Shape */}
+            <div
+              className="
+      absolute
+      w-72 h-80 sm:w-96 sm:h-[430px]
+      rounded-[45%_45%_20%_20%]
+      bg-gradient-to-br
+      from-stone-200
+      via-stone-300
+      to-stone-500
+      shadow-[0_25px_60px_rgba(0,0,0,0.18)]
+    "
+            />
+
+            {/* Small Decorative Circle */}
+            <div
+              className="
+      absolute
+      -top-3 right-8 sm:right-12
+      w-10 h-10
+      rounded-full
+      bg-orange-400/80
+      blur-[1px]
+    "
+            />
+
+            {/* Image */}
+            <div
+              className="
+      relative
+      w-72 h-80 sm:w-96 sm:h-[430px]
+      rounded-[45%_45%_20%_20%]
+      overflow-hidden
+      flex items-end justify-center
+      border border-white/30
+      shadow-2xl
+    "
+            >
               <img
                 src="/vishal-profile.png"
-                alt="VB"
-                className="w-full h-full object-cover"
+                alt="Vishal Barde"
+                className="
+        w-full
+        h-full
+        object-contain
+        object-bottom
+        scale-105
+      "
               />
             </div>
+
           </div>
         </div>
       </section>
