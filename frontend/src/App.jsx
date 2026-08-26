@@ -13,16 +13,10 @@ import {
   Mail,
   Phone,
   MapPin,
-  Quote,
-  User,
-  Smile,
-  Award,
-  Globe,
 } from "lucide-react";
 
 const navLinks = [
   { label: "Home", href: "#home" },
-
   { label: "Work", href: "#work" },
   { label: "Services", href: "#services" },
   { label: "Process", href: "#process" },
@@ -32,27 +26,27 @@ const navLinks = [
 const projects = [
   {
     name: "Real-Time Chat Application",
+    image: "./images/chatapp.png",
     tags: "React, Node.js, Socket.io",
     title: "Real-Time Chat Application",
     live: "https://chatapp-ecru-nine.vercel.app/",
     github: "https://github.com/vishalbarde360/whatsapp-clone",
-    dark: false,
   },
   {
     name: "Customer Relationship Management",
+    image: "./images/markwebix.png",
     tags: "React, Node.js, Express.js, MongoDB",
     title: "Customer Relationship Management",
     live: "https://markwebix.vercel.app/",
     github: "https://github.com/vishalbarde360/Markwebix-",
-    dark: true,
   },
   {
     name: "Music-Streaming Application",
+    image: "./images/markwebix.png",
     tags: "React, Node.js, Express.js, MongoDB",
     title: "Music-Streaming Application",
     live: "#",
     github: "#",
-    dark: false,
   },
 ];
 
@@ -80,22 +74,19 @@ const services = [
 ];
 
 const skills = [
-  "JavaScript",
-  "React",
-  "Node.js",
-  "Express.js",
-  "MongoDB",
-  "SQL",
-  "REST APIs",
-  "Socket.io",
-  "Git & GitHub",
-  "Tailwind CSS",
-  "HTML5",
-  "CSS3",
+  "🟨  JavaScript",
+  "⚛️  React",
+  "🟢  Node.js",
+  "🚂  Express.js",
+  "🍃  MongoDB",
+  "🗄️  SQL",
+  "🔗  REST APIs",
+  "🔌  Socket.io",
+  "🐙  Git & GitHub",
+  "🎨  Tailwind CSS",
+  "🌐  HTML5",
+  "🎨  CSS3",
 ];
-
-
-
 
 const process = [
   {
@@ -128,7 +119,6 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
-  // Track which section is currently in view and mark its nav link active
   useEffect(() => {
     const sectionIds = navLinks
       .map((link) => link.href.replace("#", ""))
@@ -168,10 +158,33 @@ export default function App() {
 
   return (
     <div className="bg-stone-50 text-stone-800 font-sans min-h-screen">
+      <style>{`
+        @keyframes photoFloat {
+          0%   { transform: translateY(0px) rotate(0deg); }
+          50%  { transform: translateY(-14px) rotate(0.6deg); }
+          100% { transform: translateY(0px) rotate(0deg); }
+        }
+        @keyframes ringPulse {
+          0%   { transform: scale(1); opacity: 0.7; }
+          50%  { transform: scale(1.06); opacity: 0.4; }
+          100% { transform: scale(1); opacity: 0.7; }
+        }
+        .photo-float {
+          animation: photoFloat 6s ease-in-out infinite;
+        }
+        .photo-ring {
+          animation: ringPulse 6s ease-in-out infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .photo-float, .photo-ring {
+            animation: none;
+          }
+        }
+      `}</style>
+
       {/* NAVBAR */}
       <header className="sticky top-0 z-50 bg-stone-50/95 backdrop-blur border-b border-stone-200">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between h-20">
-          {/* Logo */}
           <a
             href="#home"
             onClick={(e) => {
@@ -193,7 +206,6 @@ export default function App() {
             </span>
           </a>
 
-          {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
@@ -216,7 +228,6 @@ export default function App() {
             ))}
           </nav>
 
-          {/* Desktop CTA */}
           <a
             href="#contact"
             onClick={(e) => {
@@ -228,7 +239,6 @@ export default function App() {
             Let's Talk <ArrowRight size={14} />
           </a>
 
-          {/* Hamburger */}
           <button
             className="lg:hidden p-2 text-stone-800"
             onClick={() => setMenuOpen((v) => !v)}
@@ -238,7 +248,6 @@ export default function App() {
           </button>
         </div>
 
-        {/* Mobile menu */}
         {menuOpen && (
           <div className="lg:hidden border-t border-stone-200 bg-stone-50 px-5 py-6 space-y-5">
             <nav className="flex flex-col gap-4">
@@ -282,7 +291,8 @@ export default function App() {
               </p>
               <p className="flex items-center gap-2">
                 <MapPin size={14} className="text-green-800" />
-                Hadapsar,Pune              </p>
+                Hadapsar, Pune
+              </p>
             </div>
 
             <a
@@ -340,9 +350,13 @@ export default function App() {
           </div>
 
           <div className="relative flex justify-center">
-            <div className="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-stone-200/70" />
-            <div className="relative w-64 h-80 sm:w-80 sm:h-96 rounded-3xl bg-gradient-to-b from-green-700 to-green-900 flex items-center justify-center overflow-hidden shadow-xl">
-              <img src="/profile-photo.jpeg" alt="VB" />
+            <div className="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-stone-100/70 photo-ring" />
+            <div className="relative w-64 h-80 sm:w-80 sm:h-96 rounded-3xl bg-gradient-to-b from-white-900 to-white-900 flex items-center justify-center overflow-hidden shadow-xl photo-float">
+              <img
+                src="/profile-no-background.png"
+                alt="VB"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>
@@ -373,41 +387,46 @@ export default function App() {
               key={p.name}
               className="bg-white rounded-xl border border-stone-200 overflow-hidden flex flex-col"
             >
+              {/* Background image with title overlay */}
               <div
-                className={`h-48 flex items-center px-6 ${p.dark ? "bg-stone-900 text-white" : "bg-stone-100 text-stone-900"
-                  }`}
+                className="h-48 flex items-end bg-cover bg-center relative"
+                style={{ backgroundImage: `url(${p.image})` }}
               >
-                <p className="font-serif text-xl sm:text-2xl leading-snug max-w-[70%]">
-                  {p.title}
+                <div className="absolute inset-0 bg-black/45" />
+                <p className="relative z-10 font-serif text-xl sm:text-2xl leading-snug max-w-[80%] text-white px-6 py-4">
+
                 </p>
               </div>
-              <div className="p-5 flex items-center justify-between">
+
+              <div className="p-5 flex items-center justify-between gap-3">
                 <div>
                   <p className="text-sm font-semibold tracking-wide text-stone-900">
                     {p.name}
                   </p>
                   <p className="text-xs text-stone-500 mt-1">{p.tags}</p>
                 </div>
-                {p.live && (
-                  <a
-                    href={p.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs font-semibold tracking-widest uppercase text-green-800 hover:text-green-900"
-                  >
-                    Live
-                  </a>
-                )}
-                {p.github && (
-                  <a
-                    href={p.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs font-semibold tracking-widest uppercase text-green-800 hover:text-green-900"
-                  >
-                    GitHub
-                  </a>
-                )}
+                <div className="flex flex-col items-end gap-1 shrink-0">
+                  {p.live && (
+                    <a
+                      href={p.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-semibold tracking-widest uppercase text-green-800 hover:text-green-900"
+                    >
+                      Live
+                    </a>
+                  )}
+                  {p.github && (
+                    <a
+                      href={p.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-semibold tracking-widest uppercase text-green-800 hover:text-green-900"
+                    >
+                      GitHub
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           ))}
@@ -427,11 +446,14 @@ export default function App() {
           {services.map((s) => {
             const Icon = s.icon;
             return (
-              <div key={s.title}>
-                <div className="w-10 h-10 rounded-full bg-green-800 flex items-center justify-center mb-4">
+              <div
+                key={s.title}
+                className="group p-5 -m-5 rounded-xl transition-all duration-300 ease-out hover:-translate-y-1.5 hover:bg-white hover:shadow-lg hover:shadow-stone-200/70 cursor-default"
+              >
+                <div className="w-10 h-10 rounded-full bg-green-800 flex items-center justify-center mb-4 transition-transform duration-300 ease-out group-hover:scale-110 group-hover:rotate-6 group-hover:bg-green-700">
                   <Icon size={18} className="text-white" />
                 </div>
-                <h3 className="font-semibold text-stone-900 mb-2">
+                <h3 className="font-semibold text-stone-900 mb-2 transition-colors duration-300 group-hover:text-green-800">
                   {s.title}
                 </h3>
                 <p className="text-sm text-stone-500 leading-relaxed">
@@ -451,7 +473,7 @@ export default function App() {
             {skills.map((skill) => (
               <span
                 key={skill}
-                className="text-xs font-medium px-4 py-2 rounded-full bg-stone-100 border border-stone-200 text-stone-700"
+                className="text-xs font-medium px-4 py-2 rounded-full bg-stone-100 border border-stone-200 text-stone-700 transition-all duration-200 hover:bg-green-800 hover:text-white hover:border-green-800 hover:-translate-y-0.5"
               >
                 {skill}
               </span>
@@ -459,10 +481,6 @@ export default function App() {
           </div>
         </div>
       </section>
-
-
-
-
 
       {/* PROCESS */}
       <section id="process" className="max-w-7xl mx-auto px-5 sm:px-8 py-16">
@@ -477,14 +495,17 @@ export default function App() {
           {process.map((p) => {
             const Icon = p.icon;
             return (
-              <div key={p.num} className="text-center sm:text-left">
-                <div className="w-12 h-12 rounded-full border-2 border-stone-300 flex items-center justify-center mb-4 mx-auto sm:mx-0 text-stone-700">
+              <div
+                key={p.num}
+                className="group text-center sm:text-left p-5 -m-5 rounded-xl transition-all duration-300 ease-out hover:-translate-y-1.5 hover:bg-white hover:shadow-lg hover:shadow-stone-200/70 cursor-default"
+              >
+                <div className="w-12 h-12 rounded-full border-2 border-stone-300 flex items-center justify-center mb-4 mx-auto sm:mx-0 text-stone-700 transition-all duration-300 ease-out group-hover:border-green-800 group-hover:text-green-800 group-hover:scale-110 group-hover:rotate-6">
                   <Icon size={18} />
                 </div>
-                <p className="text-xs font-semibold text-stone-400 mb-1">
+                <p className="text-xs font-semibold text-stone-400 mb-1 transition-colors duration-300 group-hover:text-green-800">
                   {p.num}
                 </p>
-                <h3 className="font-semibold text-stone-900 mb-2">
+                <h3 className="font-semibold text-stone-900 mb-2 transition-colors duration-300 group-hover:text-green-800">
                   {p.title}
                 </h3>
                 <p className="text-sm text-stone-500 leading-relaxed">
