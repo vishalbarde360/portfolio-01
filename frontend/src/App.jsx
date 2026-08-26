@@ -350,10 +350,10 @@ export default function App() {
           </div>
 
           <div className="relative flex justify-center">
-            <div className="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-stone-100/70 photo-ring" />
-            <div className="relative w-64 h-80 sm:w-80 sm:h-96 rounded-3xl bg-gradient-to-b from-white-900 to-white-900 flex items-center justify-center overflow-hidden shadow-xl photo-float">
+            <div className="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-stone-400/70 photo-ring" />
+            <div className="relative w-64 h-80 sm:w-80 sm:h-96  bg-gradient-to-b flex items-center justify-center overflow-hidden  photo-float">
               <img
-                src="/profile-no-background.png"
+                src="/vishal-profile.png"
                 alt="VB"
                 className="w-full h-full object-cover"
               />
