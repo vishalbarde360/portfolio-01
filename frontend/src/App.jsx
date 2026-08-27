@@ -152,8 +152,8 @@ const api = axios.create({
   },
 });
 
-const SEND_OTP_URL = "/send-otp";
-const VERIFY_OTP_URL = "/verify-otp";
+const SEND_OTP_URL = "/otp/send";
+const VERIFY_OTP_URL = "/otp/verify";
 const CONTACT_FORM_URL = "/contact";
 
 /* ================================
@@ -610,8 +610,8 @@ export default function App() {
                   handleNavClick(link.href);
                 }}
                 className={`relative text-xs font-medium tracking-widest uppercase transition-colors pb-1 ${isActive(link.href)
-                    ? "text-green-800"
-                    : "text-stone-600 hover:text-green-800"
+                  ? "text-green-800"
+                  : "text-stone-600 hover:text-green-800"
                   }`}
               >
                 {link.label}
@@ -656,8 +656,8 @@ export default function App() {
                     handleNavClick(link.href);
                   }}
                   className={`text-sm font-medium tracking-widest uppercase ${isActive(link.href)
-                      ? "text-green-800"
-                      : "text-stone-700 hover:text-green-800"
+                    ? "text-green-800"
+                    : "text-stone-700 hover:text-green-800"
                     }`}
                 >
                   {link.label}
