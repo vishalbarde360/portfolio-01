@@ -18,6 +18,10 @@ import {
   Loader2,
 } from "lucide-react";
 
+/* ================================
+   NAVIGATION
+================================ */
+
 const navLinks = [
   { label: "Home", href: "#home" },
   { label: "Work", href: "#work" },
@@ -25,6 +29,10 @@ const navLinks = [
   { label: "Process", href: "#process" },
   { label: "Contact", href: "#contact" },
 ];
+
+/* ================================
+   PROJECTS
+================================ */
 
 const projects = [
   {
@@ -53,6 +61,10 @@ const projects = [
   },
 ];
 
+/* ================================
+   SERVICES
+================================ */
+
 const services = [
   {
     icon: Code2,
@@ -76,6 +88,10 @@ const services = [
   },
 ];
 
+/* ================================
+   SKILLS
+================================ */
+
 const skills = [
   "🟨 JavaScript",
   "⚛️ React",
@@ -90,6 +106,10 @@ const skills = [
   "🌐 HTML5",
   "🎨 CSS3",
 ];
+
+/* ================================
+   PROCESS
+================================ */
 
 const process = [
   {
@@ -124,9 +144,21 @@ const process = [
 
 const API_BASE = "https://portfolio0-l0gv.onrender.com/api";
 
-const SEND_OTP_URL = `${API_BASE}/send-otp`;
-const VERIFY_OTP_URL = `${API_BASE}/verify-otp`;
-const CONTACT_FORM_URL = `${API_BASE}/contact`;
+const api = axios.create({
+  baseURL: API_BASE,
+  timeout: 30000,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+const SEND_OTP_URL = "/send-otp";
+const VERIFY_OTP_URL = "/verify-otp";
+const CONTACT_FORM_URL = "/contact";
+
+/* ================================
+   APP
+================================ */
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -222,7 +254,7 @@ export default function App() {
     setErrorMsg("");
     setStatusMsg("");
 
-    /* Email changed => OTP becomes invalid */
+    // Email change = previous OTP verification invalid
     if (name === "email") {
       setOtp("");
       setOtpSent(false);
@@ -235,7 +267,7 @@ export default function App() {
   ================================= */
 
   const isValidEmail = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
   };
 
   /* ================================
@@ -246,7 +278,7 @@ export default function App() {
     setErrorMsg("");
     setStatusMsg("");
 
-    const email = form.email.trim();
+    const email = form.email.trim().toLowerCase();
 
     if (!email) {
       setErrorMsg("Please enter your email address.");
@@ -261,24 +293,41 @@ export default function App() {
     try {
       setSendingOtp(true);
 
-      const response = await axios.post(SEND_OTP_URL, {
+      // Reset old verification
+      setOtpVerified(false);
+      setOtp("");
+
+      const response = await api.post(SEND_OTP_URL, {
         email,
       });
 
       setOtpSent(true);
-      setOtpVerified(false);
-      setOtp("");
 
       setStatusMsg(
-        response.data?.message || "OTP sent successfully!"
+        response.data?.message ||
+        "OTP sent successfully! Please check your email."
       );
     } catch (error) {
-      console.error("Send OTP Error:", error);
+      console.error("SEND OTP ERROR:", error);
 
-      setErrorMsg(
-        error.response?.data?.message ||
-        "Failed to send OTP. Please try again."
-      );
+      if (error.code === "ECONNABORTED") {
+        setErrorMsg(
+          "Server is taking too long to respond. Please try again."
+        );
+      } else if (error.response) {
+        setErrorMsg(
+          error.response.data?.message ||
+          "Failed to send OTP. Please try again."
+        );
+      } else if (error.request) {
+        setErrorMsg(
+          "Unable to connect to server. Please try again."
+        );
+      } else {
+        setErrorMsg(
+          "Something went wrong. Please try again."
+        );
+      }
     } finally {
       setSendingOtp(false);
     }
@@ -292,11 +341,16 @@ export default function App() {
     setErrorMsg("");
     setStatusMsg("");
 
-    const email = form.email.trim();
+    const email = form.email.trim().toLowerCase();
     const enteredOtp = otp.trim();
 
     if (!email || !isValidEmail(email)) {
       setErrorMsg("Please enter a valid email address.");
+      return;
+    }
+
+    if (!otpSent) {
+      setErrorMsg("Please send OTP first.");
       return;
     }
 
@@ -305,15 +359,15 @@ export default function App() {
       return;
     }
 
-    if (enteredOtp.length !== 6) {
-      setErrorMsg("OTP must be 6 digits.");
+    if (!/^\d{6}$/.test(enteredOtp)) {
+      setErrorMsg("OTP must be exactly 6 digits.");
       return;
     }
 
     try {
       setVerifyingOtp(true);
 
-      const response = await axios.post(VERIFY_OTP_URL, {
+      const response = await api.post(VERIFY_OTP_URL, {
         email,
         otp: enteredOtp,
       });
@@ -325,14 +379,28 @@ export default function App() {
         "Email verified successfully!"
       );
     } catch (error) {
-      console.error("Verify OTP Error:", error);
+      console.error("VERIFY OTP ERROR:", error);
 
       setOtpVerified(false);
 
-      setErrorMsg(
-        error.response?.data?.message ||
-        "Invalid or expired OTP."
-      );
+      if (error.code === "ECONNABORTED") {
+        setErrorMsg(
+          "Server is taking too long to respond. Please try again."
+        );
+      } else if (error.response) {
+        setErrorMsg(
+          error.response.data?.message ||
+          "Invalid or expired OTP."
+        );
+      } else if (error.request) {
+        setErrorMsg(
+          "Unable to connect to server. Please try again."
+        );
+      } else {
+        setErrorMsg(
+          "Something went wrong. Please try again."
+        );
+      }
     } finally {
       setVerifyingOtp(false);
     }
@@ -349,34 +417,48 @@ export default function App() {
     setStatusMsg("");
 
     const name = form.name.trim();
-    const email = form.email.trim();
+    const email = form.email.trim().toLowerCase();
     const message = form.message.trim();
 
     /* Required fields */
+
     if (!name || !email || !message) {
       setErrorMsg("All fields are required.");
       return;
     }
 
     /* Name validation */
+
     if (name.length < 3) {
       setErrorMsg("Name must be at least 3 characters.");
       return;
     }
 
     /* Email validation */
+
     if (!isValidEmail(email)) {
       setErrorMsg("Please enter a valid email address.");
       return;
     }
 
     /* Message validation */
+
     if (message.length < 10) {
-      setErrorMsg("Message must be at least 10 characters.");
+      setErrorMsg(
+        "Message must be at least 10 characters."
+      );
       return;
     }
 
     /* OTP validation */
+
+    if (!otpSent) {
+      setErrorMsg(
+        "Please send OTP and verify your email first."
+      );
+      return;
+    }
+
     if (!otpVerified) {
       setErrorMsg(
         "Please verify your email with OTP before sending the message."
@@ -387,11 +469,14 @@ export default function App() {
     try {
       setSubmitting(true);
 
-      const response = await axios.post(CONTACT_FORM_URL, {
-        name,
-        email,
-        message,
-      });
+      const response = await api.post(
+        CONTACT_FORM_URL,
+        {
+          name,
+          email,
+          message,
+        }
+      );
 
       setStatusMsg(
         response.data?.message ||
@@ -399,6 +484,7 @@ export default function App() {
       );
 
       /* Reset form */
+
       setForm({
         name: "",
         email: "",
@@ -409,12 +495,26 @@ export default function App() {
       setOtpSent(false);
       setOtpVerified(false);
     } catch (error) {
-      console.error("Contact Error:", error);
+      console.error("CONTACT FORM ERROR:", error);
 
-      setErrorMsg(
-        error.response?.data?.message ||
-        "Something went wrong. Please try again."
-      );
+      if (error.code === "ECONNABORTED") {
+        setErrorMsg(
+          "Server is taking too long to respond. Please try again."
+        );
+      } else if (error.response) {
+        setErrorMsg(
+          error.response.data?.message ||
+          "Failed to send message. Please try again."
+        );
+      } else if (error.request) {
+        setErrorMsg(
+          "Unable to connect to server. Please try again."
+        );
+      } else {
+        setErrorMsg(
+          "Something went wrong. Please try again."
+        );
+      }
     } finally {
       setSubmitting(false);
     }
@@ -994,6 +1094,8 @@ export default function App() {
 
         <div className="max-w-7xl mx-auto px-5 sm:px-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
 
+          {/* BRAND */}
+
           <div>
 
             <div className="flex items-center gap-3 mb-4">
@@ -1164,6 +1266,7 @@ export default function App() {
 
                       setOtp(value);
                       setErrorMsg("");
+                      setStatusMsg("");
                     }}
                     placeholder="Enter 6-digit OTP"
                     disabled={verifyingOtp || submitting}
@@ -1262,6 +1365,8 @@ export default function App() {
             </form>
           </div>
         </div>
+
+        {/* COPYRIGHT */}
 
         <div className="max-w-7xl mx-auto px-5 sm:px-8 mt-10 pt-6 border-t border-stone-700 text-xs text-stone-500 flex flex-col sm:flex-row justify-between gap-2">
 
