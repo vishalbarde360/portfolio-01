@@ -59,6 +59,14 @@ const projects = [
     live: "#",
     github: "#",
   },
+  {
+    name: "Friends Photography",
+    image: "./images/friends-photo.png",
+    tags: "React, Node.js, Express.js, MongoDB",
+    title: "Friends Photography | Wedding & Event Photography Studio",
+    live: "https://friends-photography.vercel.app/",
+    github: "https://github.com/vishalbarde360/Friends-photography.git",
+  },
 ];
 
 /* ================================
