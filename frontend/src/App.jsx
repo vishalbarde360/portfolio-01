@@ -4,6 +4,7 @@ import {
   Menu,
   X,
   ArrowRight,
+  Download,
   Code2,
   Server,
   Database,
@@ -766,8 +767,19 @@ export default function App() {
               >
                 Let's Work Together <ArrowRight size={14} />
               </a>
+              <a
+                href="/resume.pdf"
+                download="Vishal-Barde-Resume.pdf"
+                className="inline-flex items-center gap-2 border border-green-800 text-green-800 hover:bg-green-800 hover:text-white text-xs font-semibold tracking-wide uppercase px-6 py-4 rounded-md transition-all duration-300"
+              >
+                Download Resume <Download size={14} />
+              </a>
+
             </div>
+
+
           </div>
+
 
           <div className="relative flex justify-center items-center">
 
