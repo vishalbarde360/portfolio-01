@@ -68,6 +68,14 @@ const projects = [
     live: "https://friends-photography.vercel.app/",
     github: "https://github.com/vishalbarde360/Friends-photography.git",
   },
+  {
+    name: "Property Rental System",
+    image: "./images/property-rental-system.png",
+    tags: "React, Node.js, Express.js, MongoDB",
+    title: "Property Rental Sysytem",
+    live: "https://property-rental-sys.vercel.app/",
+    github: "https://github.com/vishalbarde360/property-rental-system.git",
+  },
 ];
 
 /* ================================
