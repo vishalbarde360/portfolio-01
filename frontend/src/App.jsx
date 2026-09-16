@@ -37,6 +37,14 @@ const navLinks = [
 
 const projects = [
   {
+    name: "Person & Object Detection Model",
+    image: "./images/person-detection.png",
+    tags: "React, Node.js, Socket.io,@tensorflow-models/coco-ssd + @tensorflow/tfjs,@vladmandic/face-api",
+    title: "Real-time Person and Object Detection Model",
+    live: "https://person-detection-beta.vercel.app/",
+    github: "https://github.com/vishalbarde360/person-detection.git",
+  },
+  {
     name: "Real-Time Chat Application",
     image: "./images/chatapp.png",
     tags: "React, Node.js, Socket.io",
