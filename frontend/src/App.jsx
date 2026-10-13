@@ -53,7 +53,7 @@ const projects = [
     github: "https://github.com/vishalbarde360/whatsapp-clone",
   },
   {
-    name: "Customer Relationship Management",
+    name: "Customer Relationship Management(Company website)",
     image: "./images/markwebix.png",
     tags: "React, Node.js, Express.js, MongoDB",
     title: "Customer Relationship Management",
@@ -61,11 +61,11 @@ const projects = [
     github: "https://github.com/vishalbarde360/Markwebix-",
   },
   {
-    name: "Music-Streaming Application",
+    name: "Pankaj jwellers (Client project)",
     image: "",
     tags: "React, Node.js, Express.js, MongoDB",
-    title: "Music-Streaming Application",
-    live: "#",
+    title: "Jwellery shop showcase",
+    live: "https://pankaj-jewellers.vercel.app",
     github: "#",
   },
   {
